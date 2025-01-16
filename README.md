@@ -1,12 +1,20 @@
 # Brieflow Analysis Template
 
-Template repository for analyzing optical pooled screens data using [Brieflow](https://github.com/cheeseman-lab/brieflow).
+Template repository for storing configurations and outputs when analyzing optical pooled screens using [Brieflow](https://github.com/cheeseman-lab/brieflow).
 
 ## Overview
 
-This template provides a standardized structure for analyzing optical pooled screens using Brieflow. The key principle is:
-- Core processing logic and code lives in the Brieflow package
-- Analysis-specific workflows and rules live in this repository
+This repository is designed to work with Brieflow to analyze optical pooled screens. The recommended workflow is:
+
+1. Brieflow (Core Package):
+   - Install Brieflow following instructions in its repository
+   - Create new branches for any core code modifications
+   - Submit improvements back via pull requests
+
+2. This Repository (Analysis):
+   - Fork this repository for each new screen analysis 
+   - Contains configuration parameters and analysis outputs
+   - Results are organized by analysis module (preprocess, sbs_process, phenotype_process)
 
 ## Prerequisites
 
@@ -96,7 +104,6 @@ sbatch run_entire_analysis.sh
 ## Contributing
 
 - Core improvements should be contributed back to Brieflow
-- Screen-specific modifications should remain in your forked analysis repository
 - If you have analyzed any of your optical pooled screening data using brieflow-analysis, please reach out and we will include you in the table below!
 
 ## Examples of brieflow-analysis usage:
