@@ -21,17 +21,20 @@ This repository is designed to work with Brieflow to analyze optical pooled scre
 1. Install Brieflow following [installation instructions](https://github.com/cheeseman-lab/brieflow#set-up-workflowconfiguration-conda-environments)
 2. Set up the required conda environments as described in the Brieflow documentation
 
-## Customizing for Your Screen
+## Setting Up Your Analysis
 
-1. Fork this template repository
+1. Fork this template repository:
+   - Each screen analysis should have its own fork of brieflow-analysis
+   - This keeps configurations and results separate for each screen
 
-2. Core Processing Logic:
-   - Any modifications to core processing functions should be made in the Brieflow package
-   - Submit these changes via pull requests to Brieflow
+2. Core Processing (Brieflow):
+   - If you need modifications to core processing code, create a branch in Brieflow 
+   - Once tested, submit improvements back to Brieflow via pull requests
 
-3. Screen-Specific Logic:
-   - Modify rules and targets in the workflow/ directory to customize for your screen
-   - These changes stay in your forked analysis repository
+3. Analysis Configuration:
+   - Configure parameters in analysis/*.ipynb notebooks
+   - Results will be organized in analysis_root/ by module
+   - All screen-specific files stay in your forked repository
 
 ### Analysis Steps
 
