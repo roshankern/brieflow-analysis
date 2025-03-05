@@ -15,10 +15,13 @@ Create a new respository for a screen to get started.
 
 1) Create a new screen repository wih the "Use this template" button for each new screen analysis.
 
-![use template](images/image.png)
+![use template](images/template_button.png)
 
 2) *Optional*: Add template brieflow-analysis template as an upstream reference in screen repository:
 `git remote add template https://github.com/cheeseman-lab/brieflow-analysis`
+
+
+See the GutHub documentation for [using a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) for more information.
 
 ### 2. Brieflow Setup
 
@@ -102,7 +105,7 @@ Change `NUM_PLATES` in [1.run_preprocessing_slurm.sh](1.run_preprocessing_slurm.
 # start a tmux session: 
 tmux new-session -s preprocessing
 # in the tmux session:
-sh 1.run_preprocessing_slurm.sh
+bash 1.run_preprocessing_slurm.sh
 ```
 
 ***Note**: For testing purposes, users may only have generated sbs or phenotype images.
@@ -131,7 +134,7 @@ Change `NUM_PLATES` [4.run_sbs_phenotype_slurm.sh](4.run_sbs_phenotype_slurm.sh)
 # start a tmux session: 
 tmux new-session -s sbs_phenotype
 # in the tmux session:
-sh 4.run_sbs_phenotype_slurm.sh
+bash 4.run_sbs_phenotype_slurm.sh
 ```
 
 ### Step 5: Configure merge process params
@@ -149,7 +152,7 @@ sh 6.run_merge.sh
 # start a tmux session: 
 tmux new-session -s merge
 # in the tmux session:
-sh 6.run_merge_slurm.sh
+bash 6.run_merge_slurm.sh
 ```
 
 ### Step 7: Configure aggregate process params
@@ -167,7 +170,7 @@ sh 8.run_aggregate.sh
 # start a tmux session: 
 tmux new-session -s aggregate
 # in the tmux session:
-sh 8.run_aggregate_slurm.sh
+bash 8.run_aggregate_slurm.sh
 ```
 
 ### Step 9: Configure cluster process params
@@ -178,14 +181,14 @@ Follow the steps in [9.configure_cluster_params.ipynb](analysis/9.configure_clus
 
 **Local**:
 ```sh
-sh 10.run_cluster.sh
+bash 10.run_cluster.sh
 ```
 **Slurm**:
 ```sh
 # start a tmux session: 
 tmux new-session -s cluster
 # in the tmux session:
-sh 10.run_cluster_slurm.sh
+bash 10.run_cluster_slurm.sh
 ```
 
 ***Note**: Many users will want to only run SBS or phenotype processing, independently.
