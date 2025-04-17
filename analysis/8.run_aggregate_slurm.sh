@@ -16,6 +16,7 @@ snakemake --executor slurm --use-conda \
     --configfile "config/config.yml" \
     --latency-wait 60 \
     --rerun-triggers mtime \
+    --keep-going \
     --until all_aggregate
 
 # End timing and calculate duration

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Run the merge process rules
+# Run the aggregate rules
 snakemake --use-conda --cores all \
     --snakefile "../brieflow/workflow/Snakefile" \
     --configfile "config/config.yml" \
     --rerun-triggers mtime \
-    --until all_aggregate -n
+    --keep-going \
+    --until all_aggregate -n -n
