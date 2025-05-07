@@ -94,6 +94,8 @@ pytest
 
 ### 4. Start Analysis
 
+**Note:** Before beginning analysis, it is strongly recommended that you fill out the `screen.yaml` file to track all of your experimental metadata.
+
 `analysis/` contains configuration notebooks used to configure processes and slurm scripts used to run full modules.
 By default, results are output to `analysis/analysis_root` and organized by analysis module (preprocess, sbs, phenotype, etc).
 
