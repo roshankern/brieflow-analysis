@@ -33,14 +33,20 @@ See the GitHub documentation for [using a template](https://docs.github.com/en/r
 
 ### 2. Brieflow Setup
 
-We use [Brieflow](https://github.com/cheeseman-lab/brieflow) to process data on a very large scale from each screen.
-We use Brieflow as a git submodule in this repository.
+We use [brieflow](https://github.com/cheeseman-lab/brieflow) to process data on a very large scale from each screen.
+We use brieflow as a git submodule in this repository.
 Please see the [Git Submodules basic explanation](https://gist.github.com/gitaarik/8735255) for information on how to best install, use, and update this submodule.
 We recommend using a forked version of brieflow and provide instructions for doing this below.
+We **highly recommend** reading the GitHub documentation for explanation of forks to understand how your fork of brieflow syncs with the `cheeseman-lab` brieflow.
+From the documentation:
+
+> A fork is a new repository that shares code and visibility settings with the original “upstream” repository. Forks are often used to iterate on ideas or changes before they are proposed back to the upstream repository, such as in open source projects or when a user does not have write access to the upstream repository. For more information, see [Working with forks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks).
+
+To get started:
 
 1) Create a fork of brieflow-analysis as described [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
 
-2) Clone the Brieflow package into this repo using the following git submodule commands:
+2) Clone the brieflow package into this repo using the following git submodule commands:
 
 ```sh
 # set url to forked brieflow
@@ -49,17 +55,33 @@ git submodule set-url brieflow https://github.com/YOUR-USERNAME/brieflow.git
 git submodule update --init --recursive
 ```
 
-3) Set up Brieflow following the [setup instructions](https://github.com/cheeseman-lab/brieflow#brieflow-setup).
+3) Configure the remote repository for your fork (more info [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/configuring-a-remote-repository-for-a-fork)).
+
+```sh
+# set remote upstream repo
+git remote add upstream https://github.com/cheeseman-lab/brieflow.git
+
+# check origin and upstream repos
+git remote -v
+# Confirm you see the below output
+> origin    https://github.com/YOUR-USERNAME/brieflow.git (fetch)
+> origin    https://github.com/YOUR-USERNAME/brieflowgit (push)
+> upstream  https://github.com/cheeseman-lab/brieflow.git (fetch)
+> upstream  https://github.com/cheeseman-lab/brieflow.git (push)
+```
+
+Follow the [GitHub documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) to to sync changes between your fork and `cheeseman-lab/brieflow` (ex, to pull a new branch).
+
+4) Set up brieflow following the [setup instructions](https://github.com/cheeseman-lab/brieflow#brieflow-setup).
+
 Use the following commands to set up the brieflow Conda environment (~10 min):
 
 ```sh
-# enter brieflow
-cd brieflow/
-# create and activate brieflow_SCREEN_CONTEXT conda environment
-# NOTE: replace SCREEN_CONTEXT with the name of your screen context to ensure a context-specific installation
-# using this context-specific installation will refer to library code in ./brieflow/workflow/lib
-conda create -n brieflow_SCREEN_CONTEXT -c conda-forge python=3.11 uv pip -y
-conda activate brieflow_SCREEN_CONTEXT
+# create and activate brieflow_SCREEN_NAME conda environment
+# NOTE: replace brieflow_SCREEN_NAME with the name of your screen to ensure a screen-specific installation
+# using this screen-specific installation will refer to library code in ./brieflow/workflow/lib
+conda create -n brieflow_SCREEN_NAME -c conda-forge python=3.11 uv pip -y
+conda activate brieflow_SCREEN_NAME
 # install external packages
 uv pip install -r pyproject.toml
 # install editable version of brieflow
@@ -69,26 +91,26 @@ conda install -c conda-forge micro_sam -y # skip if not using micro-sam for segm
 ```
 
 **Notes:**
-- We recommend a SCREEN_CONTEXT-specific installation because changes to this particular `./brieflow/workflow/lib` code will live within this specific installation of brieflow, and an explicit name helps keep track of different brieflow installations.
+- We recommend a screen-specific installation because changes to this particular `./brieflow/workflow/lib` code will live within this specific installation of brieflow, and an explicit name helps keep track of different brieflow installations.
 One could also install one version of brieflow that is used across brieflow-analysis repositories.
 - For a rule-specific package consider creating a separate conda environment file and using it for the particular rule as described in the [Snakemake integrated package management notes](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#integrated-package-management).
 
 We use the HPC integration for Slurm as detailed in the setup instructions.
 To use the Slurm integration for Brieflow configure the Slurm resources in [analysis/slurm/config.yaml](analysis/slurm/config.yaml).
 
-4) *Optional*: Contribute back to brieflow:
+5) *Optional*: Contribute back to brieflow:
 
 Track changes to computational processing in a new branch on your fork.
-Contribute these changes to the main version of Brieflow with a pull request.
+Contribute these changes to `cheeseman-lab/brieflow` with a pull request.
 See GitHub's documentation for [contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) and brieflow's [contribution notes](https://github.com/cheeseman-lab/brieflow?tab=readme-ov-file#contribution-notes) for more info.
 
 ### 3. Brieflow Test
 
 Run the following commands to ensure your Brieflow is set up correctly:
-
+This will test Brieflow on a small limited subset of example data that we provide, and functions only with the main branch of Brieflow. This is **not** the optimal location for analyzing your data.
 ```sh
 # activate brieflow env
-conda activate brieflow_SCREEN_CONTEXT
+conda activate brieflow_SCREEN_NAME
 # set up small test analysis
 cd brieflow/tests/small_test_analysis
 python small_test_analysis_setup.py
@@ -119,12 +141,12 @@ Use the following commands to enter this folder and activate the conda env:
 # enter analysis directory
 cd analysis/
 # activate brieflow_main_env conda environment
-conda activate brieflow_main_env
+conda activate brieflow_SCREEN_NAME
 ```
 
 ***Notes**: 
 
-- Use `brieflow_main_env` Conda environment for each configuration notebook.
+- Use `brieflow_SCREEN_NAME` Conda environment for each configuration notebook.
 - How you use `brieflow` should depend on your workload.
     - Runs that can be done with local compute can be run with the `.sh` scripts, which are set up to run all rules for a module.
     Note that these scripts are currently set up to do a dry run with the `-n` parameter, which will need to be removed for a local run`.
