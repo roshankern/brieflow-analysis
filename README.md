@@ -44,11 +44,13 @@ From the documentation:
 
 To get started:
 
-1) Create a fork of brieflow-analysis as described [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
+1) Create a fork of brieflow as described [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
 
 2) Clone the brieflow package into this repo using the following git submodule commands:
 
 ```sh
+# enter brieflow dir
+cd brieflow/
 # set url to forked brieflow
 git submodule set-url brieflow https://github.com/YOUR-USERNAME/brieflow.git
 # init submodule
@@ -77,6 +79,8 @@ Follow the [GitHub documentation](https://docs.github.com/en/pull-requests/colla
 Use the following commands to set up the brieflow Conda environment (~10 min):
 
 ```sh
+# enter breiflow dir
+cd brieflow/
 # create and activate brieflow_SCREEN_NAME conda environment
 # NOTE: replace brieflow_SCREEN_NAME with the name of your screen to ensure a screen-specific installation
 # using this screen-specific installation will refer to library code in ./brieflow/workflow/lib
